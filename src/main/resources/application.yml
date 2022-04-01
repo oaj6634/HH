@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: ${MYSQL_PASSWORD:sunja123}
+    url: ${MYSQL_URL:jdbc:mysql://localhost:3306/hh?serverTimezone=Asia/Seoul}
+    username: ${MYSQL_USERNAME:root}
+  jpa:
+    generate-ddl: false
+    show-sql: false
