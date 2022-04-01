@@ -28,18 +28,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
                 .formLogin().disable()
                 .authorizeRequests()
 
-                // auth
-                .antMatchers(HttpMethod.POST, "/login", "/token-refresh").permitAll()
-
-                // sensor
-                .antMatchers(HttpMethod.GET, "/value").permitAll()
-                .antMatchers(HttpMethod.POST, "/value").permitAll()
-                .antMatchers(HttpMethod.GET, "/value/recent").permitAll()
-
-                // light
-                .antMatchers(HttpMethod.GET, "/light").permitAll()
-                .antMatchers(HttpMethod.POST, "/light/on", "/light/off").hasAuthority("USER")
-                .antMatchers(HttpMethod.GET, "/light/recent").permitAll()
+                //post
+                .antMatchers(HttpMethod.GET, "/posts").permitAll()
+                //user
+                .antMatchers(HttpMethod.POST, "/login","/join" ).permitAll()
 
                 .anyRequest().authenticated()
                 .and().exceptionHandling()

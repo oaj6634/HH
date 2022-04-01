@@ -6,6 +6,9 @@ import com.example.hh.repository.PostRepository;
 import com.example.hh.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestHeader;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Service
 @RequiredArgsConstructor
@@ -14,7 +17,10 @@ public class PostService {
     private final PostRepository postRepository;
     private final JwtTokenProvider jwtTokenProvider;
 
-    public PostResponse getPost(PostRequest postRequest){
-
+    public void getPost(){
+        String resolveToken = jwtTokenProvider.resolveToken(postRequest);
     }
+
+    public
+
 }

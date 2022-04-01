@@ -4,7 +4,9 @@ import com.example.hh.domain.User;
 import com.example.hh.dto.request.JoinRequest;
 import com.example.hh.dto.request.LoginRequest;
 import com.example.hh.dto.response.LoginResponse;
+import com.example.hh.dto.response.TokenRefreshResponse;
 import com.example.hh.error.exception.ExistUserException;
+import com.example.hh.error.exception.InvalidTokenException;
 import com.example.hh.error.exception.PasswordNotMatchedException;
 import com.example.hh.error.exception.UserNotFoundException;
 import com.example.hh.repository.UserRepository;
@@ -49,6 +51,15 @@ public class UserService {
         String refreshToken = jwtTokenProvider.generateRefreshToken(user.getUserId());
 
         return new LoginResponse(accessToken, refreshToken);
+    }
+
+    public TokenRefreshResponse tokenRefresh(String refreshToken){
+        if(!jwtTokenProvider.validateRefreshToken(refreshToken)){
+            throw new InvalidTokenException(refreshToken);
+        }
+        String id = jwtTokenProvider.getId(refreshToken);
+        String accessToken = jwtTokenProvider.generateAccessToken(id);
+        return new TokenRefreshResponse(accessToken);
     }
 
 }
