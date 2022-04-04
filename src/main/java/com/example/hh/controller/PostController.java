@@ -6,6 +6,8 @@ import com.example.hh.security.JwtTokenProvider;
 import com.example.hh.security.details.AuthUserDetails;
 import com.example.hh.service.PostService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,8 +24,8 @@ public class PostController {
 
     }
 
-    @PostMapping
-    public void post(@AuthenticationPrincipal AuthUserDetails details) {
-        return details.getUser().getUserId()
+    @PostMapping("/posts") @PreAuthorize("isAuthenticated()")
+    public void post(@RequestBody PostRequest postRequest){
+        return
     }
 }
