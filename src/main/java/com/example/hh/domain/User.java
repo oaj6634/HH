@@ -34,6 +34,15 @@ public class User {
     @Column(name = "zip_code")
     private Long zipCode;
 
-    @OneToMany(mappedBy = "user")
-    private List<Post> posts = new ArrayList<Post>();
+    @OneToMany(mappedBy = "userId")
+    private List<Post> posts = new ArrayList<>();
+
+    public void update(String password, String userName, Long zipCode){
+        this.password = password;
+        this.userName = userName;
+        this.zipCode = zipCode;
+
+    }
+
+
 }

@@ -1,20 +1,18 @@
 package com.example.hh.service;
 
 import com.example.hh.domain.Post;
-import com.example.hh.domain.User;
+import com.example.hh.dto.request.GetUserPostRequest;
+import com.example.hh.dto.response.GetPostResponse;
 import com.example.hh.dto.request.PostRequest;
-import com.example.hh.dto.response.PostResponse;
+import com.example.hh.dto.response.GetUserPostResponse;
 import com.example.hh.repository.PostRepository;
 import com.example.hh.security.JwtTokenProvider;
-import com.example.hh.security.details.AuthUserDetails;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestHeader;
 
-import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -23,6 +21,22 @@ public class PostService {
     private final PostRepository postRepository;
     private final JwtTokenProvider jwtTokenProvider;
     private final AuthService authService;
+
+    public List<GetPostResponse> getPost(){
+        List<Post> posts = postRepository.findAll();
+        List<GetPostResponse> getPost = new ArrayList<>();
+
+        for(Post post : posts) {
+            GetPostResponse postRequest = GetPostResponse.builder()
+                .title(post.getTitle())
+                .content(post.getContent())
+                .date(post.getDate())
+                .build();
+
+            getPost.add(postRequest);
+        }
+        return getPost;
+    }
 
     public void post(PostRequest postRequest){
 

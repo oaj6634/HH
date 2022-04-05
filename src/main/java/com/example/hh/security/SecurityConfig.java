@@ -32,8 +32,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
 
                 //post
                 .antMatchers(HttpMethod.GET, "/posts").permitAll()
+                .antMatchers(HttpMethod.POST, "/posts").permitAll()
                 //user
-                .antMatchers(HttpMethod.POST, "/login","/join" ).permitAll()
+                .antMatchers(HttpMethod.POST, "/main/join").permitAll()
+                .antMatchers(HttpMethod.POST, "/login" ).permitAll()
+                .antMatchers(HttpMethod.GET, "/{userName}/posts","/{userName}/profile").permitAll()
+                .antMatchers(HttpMethod.PUT, "/{userId}/profile").permitAll()
 
                 .anyRequest().authenticated()
                 .and().exceptionHandling()
