@@ -38,6 +38,9 @@ dependencies {
     // mysql
     runtimeOnly 'mysql:mysql-connector-java'
 
+    //hibernate
+    implementation group: 'org.hibernate', name: 'hibernate-core', version: '5.6.5.Final'
+
     // test database
     testImplementation 'com.h2database:h2'
 

@@ -4,7 +4,7 @@ import com.example.hh.error.exception.InvalidTokenException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,7 +20,7 @@ public class JwtTokenProvider {
 
     private final AuthDetailsService userLoadService;
 
-//    @Value( "${auth.jwt.secret}" )
+    @Value( "${auth.jwt.secret}" )
     private String secretKey;
 
     public String generateAccessToken(String value) {

@@ -32,7 +32,7 @@ public class UserService {
         String id = join.getUserId();
 
         if (userRepository.existsById(id)) {
-            throw new ExistUserException("이미 있는 사용자다");
+            throw new ExistUserException(id);
         }
 
         User user = User.builder()
@@ -45,8 +45,8 @@ public class UserService {
         userRepository.save(user);
     }
     public LoginResponse login(LoginRequest loginRequest){
-        User user = userRepository.findById(loginRequest.getId())
-                .orElseThrow(() -> new UserNotFoundException(loginRequest.getId()));
+        User user = userRepository.findByUserId(loginRequest.getUserId())
+                .orElseThrow(() -> new UserNotFoundException(loginRequest.getUserId()));
 
         if(!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword()))
             throw new PasswordNotMatchedException(loginRequest.getPassword());
@@ -82,7 +82,8 @@ public class UserService {
         return getUser;
     }
     public GetProfileResponse getProfileResponse(GetProfileRequest getProfileRequest){
-        User user = userRepository.findByUserId(getProfileRequest.getUserId());
+        User user = userRepository.findByUserId(getProfileRequest.getUserId())
+                .orElseThrow(()-> new UserNotFoundException(getProfileRequest.getUserId()));
 
         GetProfileResponse getProfile = GetProfileResponse.builder()
                 .userId(user.getUserId())
@@ -95,7 +96,8 @@ public class UserService {
         return getProfile;
     }
     public void updateProfile(UpdateProfileRequest updateProfileRequest, UpdateProfileBodyRequest updateProfile){
-        User user = userRepository.findByUserId(updateProfileRequest.getUserId());
+        User user = userRepository.findByUserId(updateProfileRequest.getUserId())
+                        .orElseThrow(()->new UserNotFoundException(updateProfileRequest.getUserId()));
 
         user.update(
                 updateProfile.getPassword(),

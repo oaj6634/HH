@@ -1,8 +1,10 @@
 package com.example.hh.error.exception;
 
-public class ExistUserException extends RuntimeException{
+import com.example.hh.error.ErrorCode;
 
-    public ExistUserException(String msg){
-        super(msg);
+public class ExistUserException extends GlobalException{
+
+    public ExistUserException(String id){
+        super(ErrorCode.EXIST_USER, id + "is exist");
     }
 }

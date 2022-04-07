@@ -13,6 +13,7 @@ public enum ErrorCode {
     UNAUTHORIZED(401, "Unauthorized Request"),
     INVALID_SECRET_KEY(401, "Invalid Secret Key"),
 
+    EXIST_USER(409,"Exist User"),
     USER_NOT_FOUND(404, "User Not Found"),
     PASSWORD_NOT_MATCHED(401, "Password Not Matched");
 
