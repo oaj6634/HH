@@ -11,6 +11,7 @@ import com.example.hh.error.exception.ExistUserException;
 import com.example.hh.error.exception.InvalidTokenException;
 import com.example.hh.error.exception.PasswordNotMatchedException;
 import com.example.hh.error.exception.UserNotFoundException;
+import com.example.hh.repository.PostRepository;
 import com.example.hh.repository.UserRepository;
 import com.example.hh.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
@@ -24,9 +25,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserService {
 
+    private final AuthService authService;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
+    private final PostRepository postRepository;
 
     public void join(JoinRequest join){
         String id = join.getUserId();
@@ -64,9 +67,9 @@ public class UserService {
         String accessToken = jwtTokenProvider.generateAccessToken(id);
         return new TokenRefreshResponse(accessToken);
     }
-    public List<GetUserPostResponse> responses(GetUserPostRequest getUserPostRequest){
-        User user = userRepository.findByUserName(getUserPostRequest.getUserName());
-        List<Post> posts = user.getPosts();
+    public List<GetUserPostResponse> responses(){
+        User user = authService.getUser();
+        List<Post> posts = postRepository.findByUserId(user);
         List<GetUserPostResponse> getUser = new ArrayList<>();
 
         for(Post post : posts){

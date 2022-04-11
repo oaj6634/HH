@@ -28,8 +28,8 @@ public class UserController {
     @PostMapping("/login")
     public LoginResponse login(@RequestBody LoginRequest loginRequest){ return userService.login(loginRequest); }
 
-    @GetMapping("/{userName}/posts") @PreAuthorize("isAuthenticated()")
-    public List<GetUserPostResponse> getUserPost(@PathVariable("userName")GetUserPostRequest request){return userService.responses(request);}
+    @GetMapping("/posts") @PreAuthorize("isAuthenticated()")
+    public List<GetUserPostResponse> getUserPost(){return userService.responses();}
 
     @GetMapping("/{userId}/profile") @PreAuthorize("isAuthenticated()")
     public GetProfileResponse profile(@PathVariable GetProfileRequest getProfileRequest){return userService.getProfileResponse(getProfileRequest);}
