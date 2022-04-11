@@ -15,7 +15,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
 
@@ -37,8 +37,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
                 //user
                 .antMatchers(HttpMethod.POST, "/user/join").permitAll()
                 .antMatchers(HttpMethod.POST, "/user/login" ).permitAll()
-                .antMatchers(HttpMethod.GET, "/*/posts","/*/profile").permitAll()
-                .antMatchers(HttpMethod.PUT, "/*/profile").permitAll()
+                .antMatchers(HttpMethod.GET, "/user/*/posts","/user/*/profile").permitAll()
+                .antMatchers(HttpMethod.PUT, "/user/*/profile").permitAll()
 
                 //어떤 요청에도 보안검사를 한다.
                 .anyRequest().authenticated()

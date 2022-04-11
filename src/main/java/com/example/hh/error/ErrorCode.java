@@ -15,6 +15,7 @@ public enum ErrorCode {
 
     EXIST_USER(409,"Exist User"),
     USER_NOT_FOUND(404, "User Not Found"),
+    POST_NOT_FOUND(404,"Post Not Found"),
     PASSWORD_NOT_MATCHED(401, "Password Not Matched");
 
 

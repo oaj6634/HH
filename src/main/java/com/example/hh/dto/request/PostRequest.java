@@ -6,11 +6,8 @@ import lombok.Getter;
 @Getter
 public class PostRequest {
 
-    private String content;
+    private String strContent;
 
-    private String title;
-
-    private User userId;
-
+    private String strTitle;
 
 }

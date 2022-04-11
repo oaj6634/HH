@@ -5,6 +5,7 @@ import com.example.hh.dto.request.GetUserPostRequest;
 import com.example.hh.dto.response.GetPostResponse;
 import com.example.hh.dto.request.PostRequest;
 import com.example.hh.dto.response.GetUserPostResponse;
+import com.example.hh.error.exception.PostNotFoundException;
 import com.example.hh.repository.PostRepository;
 import com.example.hh.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +27,10 @@ public class PostService {
         List<Post> posts = postRepository.findAll();
         List<GetPostResponse> getPost = new ArrayList<>();
 
+        if (posts.isEmpty()){
+            throw new PostNotFoundException();
+        }
+
         for(Post post : posts) {
             GetPostResponse postRequest = GetPostResponse.builder()
                 .title(post.getTitle())
@@ -41,9 +46,9 @@ public class PostService {
     public void post(PostRequest postRequest){
 
         Post post = Post.builder()
-                .content(postRequest.getContent())
+                .content(postRequest.getStrContent())
                 .date(LocalDateTime.now())
-                .title(postRequest.getTitle())
+                .title(postRequest.getStrTitle())
                 .userId(authService.getUser())
                 .build();
 

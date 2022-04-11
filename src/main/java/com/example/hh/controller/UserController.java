@@ -5,6 +5,7 @@ import com.example.hh.domain.User;
 import com.example.hh.dto.request.*;
 import com.example.hh.dto.response.GetProfileResponse;
 import com.example.hh.dto.response.GetUserPostResponse;
+import com.example.hh.dto.response.LoginResponse;
 import com.example.hh.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public void login(@RequestBody LoginRequest loginRequest){ userService.login(loginRequest); }
+    public LoginResponse login(@RequestBody LoginRequest loginRequest){ return userService.login(loginRequest); }
 
     @GetMapping("/{userName}/posts") @PreAuthorize("isAuthenticated()")
     public List<GetUserPostResponse> getUserPost(@PathVariable("userName")GetUserPostRequest request){return userService.responses(request);}
