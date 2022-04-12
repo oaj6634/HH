@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.print.Pageable;
 import java.util.List;
 
 @RestController
@@ -29,12 +30,12 @@ public class UserController {
     public LoginResponse login(@RequestBody LoginRequest loginRequest){ return userService.login(loginRequest); }
 
     @GetMapping("/posts") @PreAuthorize("isAuthenticated()")
-    public List<GetUserPostResponse> getUserPost(){return userService.responses();}
+    public List<GetUserPostResponse> getUserPost(Pageable pageable){return userService.responses(pageable);}
 
-    @GetMapping("/{userId}/profile") @PreAuthorize("isAuthenticated()")
-    public GetProfileResponse profile(@PathVariable GetProfileRequest getProfileRequest){return userService.getProfileResponse(getProfileRequest);}
+    @GetMapping("/profile") @PreAuthorize("isAuthenticated()")
+    public GetProfileResponse profile(){return userService.getProfileResponse();}
 
-    @PutMapping("/{userId}/profile") @PreAuthorize("isAuthenticated()")
-    public void updateProfile(@PathVariable("userId")UpdateProfileRequest updateProfileRequest ,@RequestBody UpdateProfileBodyRequest update){userService.updateProfile(updateProfileRequest,update);}
+    @PutMapping("/profile") @PreAuthorize("isAuthenticated()")
+    public void updateProfile(@RequestBody UpdateProfileBodyRequest update){userService.updateProfile(update);}
 
 }

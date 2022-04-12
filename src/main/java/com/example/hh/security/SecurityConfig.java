@@ -37,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
                 //user
                 .antMatchers(HttpMethod.POST, "/user/join").permitAll()
                 .antMatchers(HttpMethod.POST, "/user/login" ).permitAll()
-                .antMatchers(HttpMethod.GET, "/user/posts","/user/*/profile").permitAll()
+                .antMatchers(HttpMethod.GET, "/user/posts","/user/profile").permitAll()
                 .antMatchers(HttpMethod.PUT, "/user/*/profile").permitAll()
 
                 //어떤 요청에도 보안검사를 한다.

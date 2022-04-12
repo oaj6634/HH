@@ -15,9 +15,11 @@ import com.example.hh.repository.PostRepository;
 import com.example.hh.repository.UserRepository;
 import com.example.hh.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Pageable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,9 +69,9 @@ public class UserService {
         String accessToken = jwtTokenProvider.generateAccessToken(id);
         return new TokenRefreshResponse(accessToken);
     }
-    public List<GetUserPostResponse> responses(){
+    public List<GetUserPostResponse> responses(Pageable pageable){
         User user = authService.getUser();
-        List<Post> posts = postRepository.findByUserId(user);
+        Page<Post> posts = postRepository.findByUserId(user);
         List<GetUserPostResponse> getUser = new ArrayList<>();
 
         for(Post post : posts){
@@ -84,9 +86,9 @@ public class UserService {
 
         return getUser;
     }
-    public GetProfileResponse getProfileResponse(GetProfileRequest getProfileRequest){
-        User user = userRepository.findByUserId(getProfileRequest.getUserId())
-                .orElseThrow(()-> new UserNotFoundException(getProfileRequest.getUserId()));
+    public GetProfileResponse getProfileResponse(){
+        User user = userRepository.findByUserId(authService.getUser().getUserId())
+                .orElseThrow(()-> new UserNotFoundException(authService.getUser().getUserId()));
 
         GetProfileResponse getProfile = GetProfileResponse.builder()
                 .userId(user.getUserId())
@@ -98,9 +100,9 @@ public class UserService {
 
         return getProfile;
     }
-    public void updateProfile(UpdateProfileRequest updateProfileRequest, UpdateProfileBodyRequest updateProfile){
-        User user = userRepository.findByUserId(updateProfileRequest.getUserId())
-                        .orElseThrow(()->new UserNotFoundException(updateProfileRequest.getUserId()));
+    public void updateProfile(UpdateProfileBodyRequest updateProfile){
+        User user = userRepository.findByUserId(authService.getUser().getUserId())
+                        .orElseThrow(()->new UserNotFoundException(authService.getUser().getUserId()));
 
         user.update(
                 updateProfile.getPassword(),

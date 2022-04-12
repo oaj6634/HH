@@ -9,6 +9,8 @@ import com.example.hh.error.exception.PostNotFoundException;
 import com.example.hh.repository.PostRepository;
 import com.example.hh.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -23,8 +25,8 @@ public class PostService {
     private final JwtTokenProvider jwtTokenProvider;
     private final AuthService authService;
 
-    public List<GetPostResponse> getPost(){
-        List<Post> posts = postRepository.findAll();
+    public List<GetPostResponse> getPost(Pageable pageable){
+        Page<Post> posts = postRepository.findAll(pageable);
         List<GetPostResponse> getPost = new ArrayList<>();
 
         if (posts.isEmpty()){
