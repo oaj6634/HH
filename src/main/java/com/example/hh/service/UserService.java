@@ -16,10 +16,10 @@ import com.example.hh.repository.UserRepository;
 import com.example.hh.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.awt.print.Pageable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,7 +71,7 @@ public class UserService {
     }
     public List<GetUserPostResponse> responses(Pageable pageable){
         User user = authService.getUser();
-        Page<Post> posts = postRepository.findByUserId(user);
+        Page<Post> posts = postRepository.findByUserId(user, pageable);
         List<GetUserPostResponse> getUser = new ArrayList<>();
 
         for(Post post : posts){
