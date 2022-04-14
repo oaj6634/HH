@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequiredArgsConstructor
 @RestController
+@RequiredArgsConstructor
 public class PostController {
 
     private final PostService postService;
