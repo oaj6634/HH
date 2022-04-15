@@ -1,8 +1,8 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    password: ${MYSQL_PASSWORD:Sunja123!}
-    url: ${MYSQL_URL:jdbc:mysql://localhost:3306/hh?serverTimezone=Asia/Seoul}
+    password: ${MYSQL_PASSWORD:sunja123}
+    url: ${MYSQL_URL:jdbc:mysql://victolee-1.coykhfnnrzfi.ap-northeast-2.rds.amazonaws.com:3306/hh?serverTimezone=Asia/Seoul}
     username: ${MYSQL_USERNAME:root}
   jpa:
     show-sql: false
