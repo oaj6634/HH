@@ -18,7 +18,7 @@ import java.util.List;
 public class User {
 
     @Id
-    @Column(name = "user_id")
+    @Column(name = "user_id", length = 100)
     private String userId;
 
     @Column(name = "password")
