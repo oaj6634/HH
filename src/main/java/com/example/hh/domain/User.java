@@ -18,6 +18,7 @@ import java.util.List;
 public class User {
 
     @Id
+    @Column(name = "user_id")
     private String userId;
 
     @Column(name = "password")
