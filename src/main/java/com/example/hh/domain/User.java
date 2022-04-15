@@ -32,7 +32,7 @@ public class User {
     @Column(name = "zip_code")
     private Long zipCode;
 
-    @OneToMany(mappedBy = "userId")
+    @OneToMany(mappedBy = "user_id")
     private List<Post> posts = new ArrayList<>();
 
     public void update(String password, String userName, Long zipCode){
