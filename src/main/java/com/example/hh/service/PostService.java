@@ -29,10 +29,6 @@ public class PostService {
         Page<Post> posts = postRepository.findAll(pageable);
         List<GetPostResponse> getPost = new ArrayList<>();
 
-        if (posts.isEmpty()){
-            throw new PostNotFoundException();
-        }
-
         for(Post post : posts) {
             GetPostResponse postRequest = GetPostResponse.builder()
                 .title(post.getTitle())
