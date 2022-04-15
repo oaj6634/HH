@@ -18,6 +18,10 @@ import java.util.List;
 public class User {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int Id;
+
+    @Column(name = "user_id")
     private String userId;
 
     @Column(name = "password")
