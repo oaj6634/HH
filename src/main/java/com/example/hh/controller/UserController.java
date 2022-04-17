@@ -10,6 +10,9 @@ import com.example.hh.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,8 +25,9 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/join")
-    public void join(@RequestBody JoinRequest join){
+    public ResponseEntity join(@RequestBody JoinRequest join){
         userService.join(join);
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping("/login")
