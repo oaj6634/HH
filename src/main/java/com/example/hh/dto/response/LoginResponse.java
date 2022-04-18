@@ -1,5 +1,6 @@
 package com.example.hh.dto.response;
 
+import com.example.hh.domain.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -10,5 +11,7 @@ public class LoginResponse {
     private String accessToken;
 
     private String refreshToken;
+
+    private User user;
 
 }

@@ -59,7 +59,15 @@ public class UserService {
         String accessToken = jwtTokenProvider.generateAccessToken(user.getUserId());
         String refreshToken = jwtTokenProvider.generateRefreshToken(user.getUserId());
 
-        return new LoginResponse(accessToken, refreshToken);
+        User userInfo = User.builder()
+                .email(user.getEmail())
+                .zipCode(user.getZipCode())
+                .password(user.getPassword())
+                .userName(user.getUserName())
+                .userId(user.getUserId())
+                .build();
+
+        return new LoginResponse(accessToken, refreshToken, userInfo);
     }
     public TokenRefreshResponse tokenRefresh(String refreshToken){
         if(!jwtTokenProvider.validateRefreshToken(refreshToken)){
