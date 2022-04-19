@@ -25,9 +25,9 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/join")
-    public ResponseEntity join(@RequestBody JoinRequest join){
+    @ResponseStatus(HttpStatus.CREATED)
+    public void join(@RequestBody JoinRequest join){
         userService.join(join);
-        return ResponseEntity.ok().build();
     }
 
     @PostMapping("/login")
@@ -40,6 +40,9 @@ public class UserController {
     public GetProfileResponse profile(){return userService.getProfileResponse();}
 
     @PutMapping("/profile") @PreAuthorize("isAuthenticated()")
-    public void updateProfile(@RequestBody UpdateProfileBodyRequest update){userService.updateProfile(update);}
+    public ResponseEntity updateProfile(@RequestBody UpdateProfileBodyRequest update){
+        userService.updateProfile(update);
+        return ResponseEntity.ok().build();
+    }
 
 }

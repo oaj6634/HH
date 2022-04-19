@@ -1,4 +1,8 @@
 spring:
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     password: ${MYSQL_PASSWORD:sunja123}
@@ -12,6 +16,21 @@ spring:
     generate-ddl: true
   main:
     allow-circular-references: true
+  profiles:
+    include:
+      - aws
+      - crdentials
 auth:
   jwt:
     secret: asdf
+cloud:
+  aws:
+    s3:
+      bucket: ${버킷이름}
+    region:
+      static: 버킷지역
+    stack:
+      auto: false
+    credentials:
+      access-key:
+      secret-key:

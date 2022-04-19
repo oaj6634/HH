@@ -2,9 +2,11 @@ package com.example.hh.dto.response;
 
 import com.example.hh.domain.User;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 
 @Getter
+@Builder
 @AllArgsConstructor
 public class LoginResponse {
 
@@ -12,6 +14,14 @@ public class LoginResponse {
 
     private String refreshToken;
 
-    private User user;
+    private String userId;
+
+    private String password;
+
+    private String email;
+
+    private String userName;
+
+    private Long zipCode;
 
 }

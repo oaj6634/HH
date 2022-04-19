@@ -14,4 +14,5 @@ public class ErrorResponse {
         this.message = errorCode.getMessage();
         this.reason = reason;
     }
+
 }

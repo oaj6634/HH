@@ -1,13 +1,17 @@
 package com.example.hh.error;
 
 import com.example.hh.error.exception.GlobalException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
+
+@Slf4j
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -21,6 +25,14 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     protected ResponseEntity<ErrorResponse> handleHttpMessageNotReadableExceptionException(final HttpMessageNotReadableException e) {
         final ErrorResponse response = new ErrorResponse(ErrorCode.INVALID_INPUT_VALUE, "Request Message Can't Read");
+        return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
+    }
+
+    @ExceptionHandler(MaxUploadSizeExceededException.class)
+    protected ResponseEntity<ErrorResponse> handlerMaxUploadSizeExceededException(
+            MaxUploadSizeExceededException e){
+        log.info("handlerMaxUploadSizeExceededException", e);
+        ErrorResponse response =  new ErrorResponse(ErrorCode.FILE_SIZE_EXCED, "File Size Exced");
         return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
     }
 
