@@ -26,11 +26,17 @@ auth:
 cloud:
   aws:
     s3:
-      bucket: ${버킷이름}
+      bucket: hh-blog
     region:
       static: 버킷지역
     stack:
       auto: false
     credentials:
-      access-key:
-      secret-key:
+      access-key: ${AWS_ACCESSKEY}
+      secret-key: ${AWS_SECRETKEY}
+logging:
+  level:
+    com:
+      amazonaws:
+        util:
+          EC2MetadataUtils: error

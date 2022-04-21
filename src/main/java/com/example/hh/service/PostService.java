@@ -24,6 +24,7 @@ public class PostService {
     private final PostRepository postRepository;
     private final JwtTokenProvider jwtTokenProvider;
     private final AuthService authService;
+    private final AwsService awsService;
 
     public List<GetPostResponse> getPost(Pageable pageable){
         Page<Post> posts = postRepository.findAll(pageable);
@@ -31,10 +32,10 @@ public class PostService {
 
         for(Post post : posts) {
             GetPostResponse postRequest = GetPostResponse.builder()
-                .title(post.getTitle())
-                .content(post.getContent())
-                .date(post.getDate())
-                .build();
+                    .title(post.getTitle())
+                    .content(post.getContent())
+                    .date(post.getDate())
+                    .build();
 
             getPost.add(postRequest);
         }
@@ -42,6 +43,8 @@ public class PostService {
     }
 
     public void post(PostRequest postRequest){
+
+
 
         Post post = Post.builder()
                 .content(postRequest.getStrContent())
