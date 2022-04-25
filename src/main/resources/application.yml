@@ -28,7 +28,7 @@ cloud:
     s3:
       bucket: hh-blog
     region:
-      static: 버킷지역
+      static: ap-northeast-2
     stack:
       auto: false
     credentials:
