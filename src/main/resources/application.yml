@@ -34,6 +34,7 @@ cloud:
     credentials:
       access-key: ${AWS_ACCESSKEY}
       secret-key: ${AWS_SECRETKEY}
+      instance-profile: true
 logging:
   level:
     com:

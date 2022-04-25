@@ -32,6 +32,9 @@ public class Post {
     @CreatedBy
     @Column(name = "date")
     private LocalDateTime date;
+    
+    @Column(name = "image_url")
+    private String imageUrl;
 
     @ManyToOne
     private User userId;

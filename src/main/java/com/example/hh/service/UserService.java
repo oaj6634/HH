@@ -87,6 +87,7 @@ public class UserService {
                     .content(post.getContent())
                     .title(post.getTitle())
                     .date(post.getDate())
+                    .imageUrl(post.getImageUrl())
                     .build();
 
             getUser.add(getUserPost);

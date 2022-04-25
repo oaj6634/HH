@@ -24,11 +24,12 @@ public class PostController {
 
     @GetMapping("/posts") @PreAuthorize("isAuthenticated()")
     public ResponseEntity<List<GetPostResponse>> getPost(Pageable pageable){
-        return new ResponseEntity<>( HttpStatus.OK);
+        return new ResponseEntity<>(postService.getPost(pageable), HttpStatus.OK);
     }
 
     @PostMapping("/posts") @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<String> post(@RequestPart PostRequest postRequest){
+    @ResponseStatus(value = HttpStatus.OK)
+    public void post(@RequestPart PostRequest postRequest){
         postService.post(postRequest);
     }
 

@@ -24,7 +24,7 @@ public class PostService {
     private final PostRepository postRepository;
     private final JwtTokenProvider jwtTokenProvider;
     private final AuthService authService;
-    private final AwsService awsService;
+    private final FileUploadService fileUploadService;
 
     public List<GetPostResponse> getPost(Pageable pageable){
         Page<Post> posts = postRepository.findAll(pageable);
@@ -35,6 +35,7 @@ public class PostService {
                     .title(post.getTitle())
                     .content(post.getContent())
                     .date(post.getDate())
+                    .imageUrl(post.getImageUrl())
                     .build();
 
             getPost.add(postRequest);
@@ -42,18 +43,16 @@ public class PostService {
         return getPost;
     }
 
-    public void post(PostRequest postRequest){
-
-
+    public void post(PostRequest postRequest) {
 
         Post post = Post.builder()
                 .content(postRequest.getStrContent())
                 .date(LocalDateTime.now())
                 .title(postRequest.getStrTitle())
                 .userId(authService.getUser())
+                .imageUrl(fileUploadService.uploadImage(postRequest.getMultipartFile()))
                 .build();
 
         postRepository.save(post);
     }
-
 }

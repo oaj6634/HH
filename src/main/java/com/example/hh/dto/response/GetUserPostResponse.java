@@ -15,4 +15,5 @@ public class GetUserPostResponse {
 
     private LocalDateTime date;
 
+    private String imageUrl;
 }

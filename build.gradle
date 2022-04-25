@@ -50,6 +50,10 @@ dependencies {
     // test
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
+
+    // configuration-processor
+    implementation group: 'org.springframework.boot', name: 'spring-boot-configuration-processor', version: '2.6.6'
+
 }
 
 tasks.named('test') {
