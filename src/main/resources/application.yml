@@ -23,18 +23,6 @@ spring:
 auth:
   jwt:
     secret: asdf
-cloud:
-  aws:
-    s3:
-      bucket: hh-blog
-    region:
-      static: ap-northeast-2
-    stack:
-      auto: false
-    credentials:
-      access-key: ${AWS_ACCESSKEY}
-      secret-key: ${AWS_SECRETKEY}
-      instance-profile: true
 logging:
   level:
     com:
