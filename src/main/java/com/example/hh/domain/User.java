@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.BatchSize;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -33,7 +34,8 @@ public class User {
     @Column(name = "zip_code")
     private Long zipCode;
 
-    @OneToMany(mappedBy = "userId")
+    @BatchSize(size = 5)
+    @OneToMany(mappedBy = "userId", fetch = FetchType.EAGER)
     private List<Post> posts = new ArrayList<>();
 
     public void update(String password, String userName, Long zipCode){
