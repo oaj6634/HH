@@ -79,14 +79,14 @@ public class UserService {
     }
     public List<GetUserPostResponse> responses(Pageable pageable){
         User user = authService.getUser();
-        Page<Post> posts = postRepository.findByUserId(user, pageable);
+        Page<Post> posts = postRepository.findByUser(user, pageable);
         List<GetUserPostResponse> getUser = new ArrayList<>();
 
         for(Post post : posts){
             GetUserPostResponse getUserPost = GetUserPostResponse.builder()
                     .content(post.getContent())
                     .title(post.getTitle())
-                    .date(post.getDate())
+                    .date(post.getCreateAt())
                     .imageUrl(post.getImageUrl())
                     .build();
 

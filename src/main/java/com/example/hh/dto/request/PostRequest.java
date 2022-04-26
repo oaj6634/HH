@@ -7,7 +7,6 @@ import org.springframework.web.multipart.MultipartFile;
 @Getter
 public class PostRequest {
 
-    private MultipartFile multipartFile;
 
     private String strContent;
 

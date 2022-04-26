@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -34,7 +35,7 @@ public class PostService {
             GetPostResponse postRequest = GetPostResponse.builder()
                     .title(post.getTitle())
                     .content(post.getContent())
-                    .date(post.getDate())
+                    .date(post.getCreateAt())
                     .imageUrl(post.getImageUrl())
                     .build();
 
@@ -43,14 +44,14 @@ public class PostService {
         return getPost;
     }
 
-    public void post(PostRequest postRequest) {
+    public void post(MultipartFile multipartFile, PostRequest postRequest) {
 
         Post post = Post.builder()
                 .content(postRequest.getStrContent())
-                .date(LocalDateTime.now())
+                .createAt(LocalDateTime.now())
                 .title(postRequest.getStrTitle())
-                .userId(authService.getUser())
-                .imageUrl(fileUploadService.uploadImage(postRequest.getMultipartFile()))
+                .user(authService.getUser())
+                .imageUrl(fileUploadService.uploadImage(multipartFile))
                 .build();
 
         postRepository.save(post);

@@ -19,7 +19,7 @@ import java.util.List;
 public class User {
 
     @Id
-    @Column(name = "user_id", length = 1000)
+    @Column(name = "user_id", length = 100)
     private String userId;
 
     @Column(name = "password")
@@ -28,15 +28,15 @@ public class User {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "user_name")
+    @Column(name = "name")
     private String userName;
 
     @Column(name = "zip_code")
     private Long zipCode;
 
     @BatchSize(size = 5)
-    @OneToMany(mappedBy = "userId", fetch = FetchType.EAGER)
-    private List<Post> posts = new ArrayList<>();
+    @OneToMany(mappedBy = "user")
+    private List<Post> posts;
 
     public void update(String password, String userName, Long zipCode){
         this.password = password;

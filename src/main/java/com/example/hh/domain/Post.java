@@ -31,11 +31,12 @@ public class Post {
 
     @CreatedBy
     @Column(name = "date")
-    private LocalDateTime date;
+    private LocalDateTime createAt;
     
     @Column(name = "image_url")
     private String imageUrl;
 
     @ManyToOne
-    private User userId;
+    @JoinColumn(name = "user_id")
+    private User user;
 }

@@ -5,13 +5,13 @@ spring:
       max-request-size: 20MB
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    password: ${MYSQL_PASSWORD:sunja123}
-    url: ${MYSQL_URL:jdbc:mysql://victolee-1.coykhfnnrzfi.ap-northeast-2.rds.amazonaws.com:3306/HH?serverTimezone=Asia/Seoul}
-    username: ${MYSQL_USERNAME:root}
+    password: sunja123
+    url: jdbc:mysql://localhost:3306/hh
+    username: root
   jpa:
-    show-sql: false
+    show-sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
     database-platform: org.hibernate.dialect.MySQL5Dialect
     generate-ddl: true
   main:

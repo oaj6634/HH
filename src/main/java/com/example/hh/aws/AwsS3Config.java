@@ -8,14 +8,15 @@ import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 
 @Configuration
 public class AwsS3Config {
 
-    @Value("${cloud.aws.credentials.accessKey}")
+    @Value("${cloud.aws.credentials.access-key:AKIAVMSYND4UKYORD6FH}")
     private String awsId;
 
-    @Value("${cloud.aws.credentials.secretKey}")
+    @Value("${cloud.aws.credentials.secret-key:WLOE0iFQShyyKB7lnfPAuBHysNHquJM436V0sAWf}")
     private String awsKey;
 
     @Value("${cloud.aws.region.static}")

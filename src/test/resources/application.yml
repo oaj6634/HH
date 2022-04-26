@@ -7,3 +7,15 @@ spring:
     url: jdbc:h2:mem:userdb;DB_CLOSE_DELAY=-1
     username: test
     password: 1234
+cloud:
+  aws:
+    credentials:
+      instance-profile: true
+      access-key: asdf
+      secret-key: asdf
+    s3:
+      bucket: hh-blog
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
