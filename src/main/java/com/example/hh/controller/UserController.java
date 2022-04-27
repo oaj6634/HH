@@ -30,6 +30,7 @@ public class UserController {
         userService.join(join);
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/login")
     public LoginResponse login(@RequestBody LoginRequest loginRequest){ return userService.login(loginRequest); }
 

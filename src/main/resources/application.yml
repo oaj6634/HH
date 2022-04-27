@@ -29,3 +29,16 @@ logging:
       amazonaws:
         util:
           EC2MetadataUtils: error
+
+cloud:
+  aws:
+    s3:
+      bucket: hh-blog
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
+    credentials:
+      instance-profile: true
+      access-key: ${AWS_ACCESSKEY:AKIAVMSYND4UABGNXHOC}
+      secret-key: ${AWS_SECRETKEY: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}
