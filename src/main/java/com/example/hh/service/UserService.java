@@ -19,6 +19,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -119,13 +120,13 @@ public class UserService {
 
         return getProfile;
     }
-    public void updateProfile(UpdateProfileBodyRequest image, UpdateProfileBodyRequest description, UpdateProfileBodyRequest userName){
+    public void updateProfile(MultipartFile image, UpdateProfileBodyRequest description, UpdateProfileBodyRequest userName){
         User user = userRepository.findByUserId(authService.getUser().getUserId())
                         .orElseThrow(()->new UserNotFoundException(authService.getUser().getUserId()));
 
         user.update(userName.getUserName(),
                 description.getDescription(),
-                fileUploadService.uploadImage(image.getImage()));
+                fileUploadService.uploadImage(image));
 
 
         userRepository.save(user);

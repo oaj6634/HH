@@ -14,5 +14,4 @@ public class UpdateProfileBodyRequest {
 
     private String email;
 
-    private MultipartFile image;
 }

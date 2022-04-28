@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -39,7 +40,7 @@ public class UserController {
     public GetProfileResponse profile(){return userService.getProfileResponse();}
 
     @PostMapping("/profile") @PreAuthorize("isAuthenticated()")
-    public ResponseEntity updateProfile(@RequestPart("file")UpdateProfileBodyRequest image,
+    public ResponseEntity updateProfile(@RequestPart("file") MultipartFile image,
                                         @RequestPart("description") UpdateProfileBodyRequest description,
                                         @RequestPart("userName")UpdateProfileBodyRequest userName){
         userService.updateProfile(image,description,userName);
