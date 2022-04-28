@@ -38,7 +38,7 @@ public class UserController {
     @GetMapping("/profile") @PreAuthorize("isAuthenticated()")
     public GetProfileResponse profile(){return userService.getProfileResponse();}
 
-    @PutMapping("/profile") @PreAuthorize("isAuthenticated()")
+    @PostMapping("/profile") @PreAuthorize("isAuthenticated()")
     public ResponseEntity updateProfile(@RequestPart("file")UpdateProfileBodyRequest image,
                                         @RequestPart("description") UpdateProfileBodyRequest description,
                                         @RequestPart("userName")UpdateProfileBodyRequest userName){
