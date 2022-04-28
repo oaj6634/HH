@@ -25,12 +25,12 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/join")
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.OK)
     public void join(@RequestBody JoinRequest join){
         userService.join(join);
     }
 
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.OK)
     @PostMapping("/login")
     public LoginResponse login(@RequestBody LoginRequest loginRequest){ return userService.login(loginRequest); }
 
