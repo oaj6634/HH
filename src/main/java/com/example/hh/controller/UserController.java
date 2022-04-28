@@ -26,12 +26,10 @@ public class UserController {
 
     @PostMapping("/join")
     @ResponseStatus(HttpStatus.CREATED)
-    public void join(@RequestBody JoinRequest join){
-        userService.join(join);
-    }
+    public void join(@RequestBody JoinRequest join){ userService.join(join);}
 
-    @ResponseStatus(HttpStatus.OK)
     @PostMapping("/login")
+    @ResponseStatus(HttpStatus.CREATED)
     public LoginResponse login(@RequestBody LoginRequest loginRequest){ return userService.login(loginRequest); }
 
     @GetMapping("/posts") @PreAuthorize("isAuthenticated()")

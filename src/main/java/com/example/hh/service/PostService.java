@@ -1,11 +1,9 @@
 package com.example.hh.service;
 
 import com.example.hh.domain.Post;
-import com.example.hh.dto.request.GetUserPostRequest;
+import com.example.hh.dto.request.PostRequestTitle;
 import com.example.hh.dto.response.GetPostResponse;
-import com.example.hh.dto.request.PostRequest;
-import com.example.hh.dto.response.GetUserPostResponse;
-import com.example.hh.error.exception.PostNotFoundException;
+import com.example.hh.dto.request.PostRequestContent;
 import com.example.hh.repository.PostRepository;
 import com.example.hh.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
@@ -44,12 +42,12 @@ public class PostService {
         return getPost;
     }
 
-    public void post(MultipartFile multipartFile, PostRequest postRequest) {
+    public void post(MultipartFile multipartFile, PostRequestContent postRequestContent, PostRequestTitle postRequestTitle) {
 
         Post post = Post.builder()
-                .content(postRequest.getStrContent())
+                .content(postRequestContent.getContent())
                 .createAt(LocalDateTime.now())
-                .title(postRequest.getStrTitle())
+                .title(postRequestTitle.getTitle())
                 .user(authService.getUser())
                 .imageUrl(fileUploadService.uploadImage(multipartFile))
                 .build();

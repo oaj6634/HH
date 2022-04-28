@@ -1,13 +1,11 @@
 package com.example.hh.controller;
 
-import com.example.hh.domain.Post;
+import com.example.hh.dto.request.PostRequestTitle;
 import com.example.hh.dto.response.GetPostResponse;
-import com.example.hh.dto.request.PostRequest;
+import com.example.hh.dto.request.PostRequestContent;
 import com.example.hh.service.PostService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -29,9 +27,11 @@ public class PostController {
     }
 
     @PostMapping("/posts") @PreAuthorize("isAuthenticated()")
-    @ResponseStatus(value = HttpStatus.OK)
-    public void post(@RequestPart("file") MultipartFile multipartFile, @RequestPart("post")PostRequest postRequest){
-        postService.post(multipartFile, postRequest);
+    @ResponseStatus(HttpStatus.OK)
+    public void post(@RequestPart("file") MultipartFile multipartFile,
+                     @RequestPart("content") PostRequestContent postRequestContent,
+                     @RequestPart("title") PostRequestTitle postRequestTitle){
+        postService.post(multipartFile, postRequestContent, postRequestTitle);
     }
 
 }
