@@ -37,6 +37,7 @@ public class UserController {
     public List<GetUserPostResponse> getUserPost(Pageable pageable){return userService.responses(pageable);}
 
     @GetMapping("/profile") @PreAuthorize("isAuthenticated()")
+    @ResponseStatus(HttpStatus.OK)
     public GetProfileResponse profile(){return userService.getProfileResponse();}
 
     @PostMapping("/profile") @PreAuthorize("isAuthenticated()")

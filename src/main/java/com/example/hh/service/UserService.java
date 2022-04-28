@@ -101,7 +101,7 @@ public class UserService {
         User user = userRepository.findByUserId(authService.getUser().getUserId())
                 .orElseThrow(()-> new UserNotFoundException(authService.getUser().getUserId()));
 
-        if(user.getDescription() == null && user.getImageUrl() == null){
+        if(user.getDescription() == null && user.getProfileImageUrl() == null){
             GetProfileResponse getProfileResponse = GetProfileResponse.builder()
                     .email(user.getEmail())
                     .imageUrl("")
@@ -115,7 +115,7 @@ public class UserService {
         GetProfileResponse getProfile = GetProfileResponse.builder()
                 .email(user.getEmail())
                 .userName(user.getUserName())
-                .imageUrl(user.getImageUrl())
+                .imageUrl(user.getProfileImageUrl())
                 .build();
 
         return getProfile;
