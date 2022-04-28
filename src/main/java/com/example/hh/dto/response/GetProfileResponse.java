@@ -7,13 +7,12 @@ import lombok.Getter;
 @Getter
 public class GetProfileResponse {
 
-    private String userId;
-
-    private String password;
+    private String imageUrl;
 
     private String email;
 
+    private String description;
+
     private String userName;
 
-    private Long zipCode;
 }

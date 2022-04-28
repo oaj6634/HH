@@ -2,6 +2,7 @@ package com.example.hh.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.springframework.web.multipart.MultipartFile;
 
 @Getter
 @AllArgsConstructor
@@ -9,7 +10,9 @@ public class UpdateProfileBodyRequest {
 
     private String userName;
 
-    private String password;
+    private String description;
 
-    private Long zipCode;
+    private String email;
+
+    private MultipartFile image;
 }

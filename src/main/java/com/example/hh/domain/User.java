@@ -34,15 +34,20 @@ public class User {
     @Column(name = "zip_code")
     private Long zipCode;
 
+    @Column(name = "image_url")
+    private String imageUrl;
+
     @BatchSize(size = 5)
     @OneToMany(mappedBy = "user")
     private List<Post> posts;
 
-    public void update(String password, String userName, Long zipCode){
-        this.password = password;
-        this.userName = userName;
-        this.zipCode = zipCode;
+    @Column(name = "description")
+    private String description;
 
+    public void update(String userName, String description,String imageUrl){
+        this.userName = userName;
+        this.imageUrl = imageUrl;
+        this.description = description;
     }
 
 

@@ -32,6 +32,7 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
     private final PostRepository postRepository;
+    private final FileUploadService fileUploadService;
 
     public void join(JoinRequest join){
         String id = join.getUserId();
@@ -99,24 +100,33 @@ public class UserService {
         User user = userRepository.findByUserId(authService.getUser().getUserId())
                 .orElseThrow(()-> new UserNotFoundException(authService.getUser().getUserId()));
 
+        if(user.getDescription() == null && user.getImageUrl() == null){
+            GetProfileResponse getProfileResponse = GetProfileResponse.builder()
+                    .email(user.getEmail())
+                    .imageUrl("")
+                    .description("")
+                    .userName(user.getUserName())
+                    .build();
+
+            return getProfileResponse;
+        }
+
         GetProfileResponse getProfile = GetProfileResponse.builder()
-                .userId(user.getUserId())
-                .password(user.getPassword())
                 .email(user.getEmail())
                 .userName(user.getUserName())
-                .zipCode(user.getZipCode())
+                .imageUrl(user.getImageUrl())
                 .build();
 
         return getProfile;
     }
-    public void updateProfile(UpdateProfileBodyRequest updateProfile){
+    public void updateProfile(UpdateProfileBodyRequest image, UpdateProfileBodyRequest description, UpdateProfileBodyRequest userName){
         User user = userRepository.findByUserId(authService.getUser().getUserId())
                         .orElseThrow(()->new UserNotFoundException(authService.getUser().getUserId()));
 
-        user.update(
-                updateProfile.getPassword(),
-                updateProfile.getUserName(),
-                updateProfile.getZipCode());
+        user.update(userName.getUserName(),
+                description.getDescription(),
+                fileUploadService.uploadImage(image.getImage()));
+
 
         userRepository.save(user);
     }
