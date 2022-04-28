@@ -116,6 +116,7 @@ public class UserService {
                 .email(user.getEmail())
                 .userName(user.getUserName())
                 .imageUrl(user.getProfileImageUrl())
+                .description(user.getDescription())
                 .build();
 
         return getProfile;

@@ -12,6 +12,4 @@ public class UpdateProfileBodyRequest {
 
     private String description;
 
-    private String email;
-
 }
