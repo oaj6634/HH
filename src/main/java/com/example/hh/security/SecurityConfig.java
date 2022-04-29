@@ -24,7 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()//csrf 비활성화 이 기능을 활용하려면 클라이언트에서 csrf토근값을 보내줘야 하기 때문
+        http.csrf().disable()//csrf 비활성화 하는 이유는 REST API를 사용하기 때문에 더이상 csrf와 관련이 없기 때문
                 .sessionManagement().disable()// 세선 관리 안함
                 .cors().disable()
                 .formLogin().disable()

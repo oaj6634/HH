@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
+//AWS S3에 접근하기 위해 만든 IAM 계정의 정보를 가져오기 위한 클래스
 @Configuration
 public class AwsS3Config {
 

@@ -20,6 +20,7 @@ public class AWSS3UploadService implements UploadService{
 
     @Override
     public void uploadFile(InputStream inputStream, ObjectMetadata objectMetadata, String fileName) {
+        //마지막에 withCannedAcl로 선택적 엑세스제어정책을 설정한다는데 엑세스제어정책이란 보호된 자원에 대한 엑세스가 사용자에게 허용되는지 거부되는지 정의하는 것이라고 함.
         amazonS3.putObject(new PutObjectRequest(s3Component.getBucket(), fileName, inputStream, objectMetadata).withCannedAcl(CannedAccessControlList.PublicRead));
     }
     @Override

@@ -76,12 +76,12 @@ public class JwtTokenProvider {
 
     private String makingToken(String value, String type, Long time){
         return Jwts.builder()
-                .setExpiration(new Date(System.currentTimeMillis() + (time * 1000L)))
-                .signWith(SignatureAlgorithm.HS512, encodingSecretKey())
-                .setIssuedAt(new Date())
-                .setSubject(value)
-                .claim("type", type)
-                .compact();
+                .setExpiration(new Date(System.currentTimeMillis() + (time * 1000L))) //만료시간
+                .signWith(SignatureAlgorithm.HS512, encodingSecretKey()) // 사용할 알고리즘과 키 적용
+                .setIssuedAt(new Date()) // 생성일
+                .setSubject(value) // 토큰대상자
+                .claim("type", type) // JWT Claim 파라미터 값 설정
+                .compact(); //JWT 빌드
     }
 
     private String encodingSecretKey(){
