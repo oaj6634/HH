@@ -54,7 +54,7 @@ public class JwtTokenProvider {
         }
         return null;
     }
-
+//                                                                          startWith() 지정된 접두사로 시작하는지 확인
     public Boolean checkToken(String token) {
         return token != null && token.startsWith("Bearer");
     }
@@ -66,7 +66,7 @@ public class JwtTokenProvider {
 
 
     private boolean validateToken(String token, String typeKind) {
-        try {
+        try {// parser() jwt를 분석해줌 setSigningKey() JWS 서명을 확인하는데 사용되는 키를 설정함.
             String type = Jwts.parser().setSigningKey(encodingSecretKey()).parseClaimsJws(token).getBody().get("type", String.class);
             return type.equals(typeKind);
         } catch (Exception e) {
