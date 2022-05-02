@@ -35,7 +35,7 @@ public class UserService {
     private final PostRepository postRepository;
     private final FileUploadService fileUploadService;
 
-    public void join(JoinRequest join){
+    public void join(JoinRequest join) {
         String id = join.getUserId();
 
         if (userRepository.existsById(id)) {
@@ -51,40 +51,43 @@ public class UserService {
                 .build();
         userRepository.save(user);
     }
-    public LoginResponse login(LoginRequest loginRequest){
+
+    public LoginResponse login(LoginRequest loginRequest) {
         User user = userRepository.findByUserId(loginRequest.getUserId())
                 .orElseThrow(() -> new UserNotFoundException(loginRequest.getUserId()));
 
-        if(!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword()))
+        if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword()))
             throw new PasswordNotMatchedException(loginRequest.getPassword());
 
         String accessToken = jwtTokenProvider.generateAccessToken(user.getUserId());
         String refreshToken = jwtTokenProvider.generateRefreshToken(user.getUserId());
 
-         return LoginResponse.builder()
-                 .accessToken(accessToken)
-                 .refreshToken(refreshToken)
-                 .userId(user.getUserId())
-                 .password(user.getPassword())
-                 .email(user.getEmail())
-                 .userName(user.getUserName())
-                 .zipCode(user.getZipCode())
-                 .build();
+        return LoginResponse.builder()
+                .accessToken(accessToken)
+                .refreshToken(refreshToken)
+                .userId(user.getUserId())
+                .password(user.getPassword())
+                .email(user.getEmail())
+                .userName(user.getUserName())
+                .zipCode(user.getZipCode())
+                .build();
     }
-    public TokenRefreshResponse tokenRefresh(String refreshToken){
-        if(!jwtTokenProvider.validateRefreshToken(refreshToken)){
+
+    public TokenRefreshResponse tokenRefresh(String refreshToken) {
+        if (!jwtTokenProvider.validateRefreshToken(refreshToken)) {
             throw new InvalidTokenException(refreshToken);
         }
         String id = jwtTokenProvider.getId(refreshToken);
         String accessToken = jwtTokenProvider.generateAccessToken(id);
         return new TokenRefreshResponse(accessToken);
     }
-    public List<GetUserPostResponse> responses(Pageable pageable){
+
+    public List<GetUserPostResponse> responses(Pageable pageable) {
         User user = authService.getUser();
         Page<Post> posts = postRepository.findByUser(user.getUserId(), pageable);
         List<GetUserPostResponse> getUser = new ArrayList<>();
 
-        for(Post post : posts){
+        for (Post post : posts) {
             GetUserPostResponse getUserPost = GetUserPostResponse.builder()
                     .content(post.getContent())
                     .title(post.getTitle())
@@ -97,11 +100,12 @@ public class UserService {
 
         return getUser;
     }
-    public GetProfileResponse getProfileResponse(){
-        User user = userRepository.findByUserId(authService.getUser().getUserId())
-                .orElseThrow(()-> new UserNotFoundException(authService.getUser().getUserId()));
 
-        if(user.getDescription() == null && user.getProfileImageUrl() == null){
+    public GetProfileResponse getProfileResponse() {
+        User user = userRepository.findByUserId(authService.getUser().getUserId())
+                .orElseThrow(() -> new UserNotFoundException(authService.getUser().getUserId()));
+
+        if (user.getDescription() == null && user.getProfileImageUrl() == null) {
             GetProfileResponse getProfileResponse = GetProfileResponse.builder()
                     .email(user.getEmail())
                     .imageUrl("")
@@ -121,9 +125,10 @@ public class UserService {
 
         return getProfile;
     }
-    public void updateProfile(MultipartFile image, UpdateProfileBodyRequest description, UpdateProfileBodyRequest userName){
+
+    public void updateProfile(MultipartFile image, UpdateProfileBodyRequest description, UpdateProfileBodyRequest userName) {
         User user = userRepository.findByUserId(authService.getUser().getUserId())
-                        .orElseThrow(()->new UserNotFoundException(authService.getUser().getUserId()));
+                .orElseThrow(() -> new UserNotFoundException(authService.getUser().getUserId()));
 
         user.update(userName.getUserName(),
                 description.getDescription(),

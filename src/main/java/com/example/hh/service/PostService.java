@@ -25,11 +25,11 @@ public class PostService {
     private final AuthService authService;
     private final FileUploadService fileUploadService;
 
-    public List<GetPostResponse> getPost(Pageable pageable){
+    public List<GetPostResponse> getPost(Pageable pageable) {
         Page<Post> posts = postRepository.findAll(pageable);
         List<GetPostResponse> getPost = new ArrayList<>();
 
-        for(Post post : posts) {
+        for (Post post : posts) {
             GetPostResponse postRequest = GetPostResponse.builder()
                     .title(post.getTitle())
                     .content(post.getContent())

@@ -19,7 +19,8 @@ import java.time.LocalDateTime;
 @Table(name = "post")
 public class Post {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "post_id")
     private Long id;
 
@@ -32,7 +33,7 @@ public class Post {
     @CreatedBy
     @Column(name = "date")
     private LocalDateTime createAt;
-    
+
     @Column(name = "image_url")
     private String imageUrl;
 

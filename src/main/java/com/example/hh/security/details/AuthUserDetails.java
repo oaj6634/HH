@@ -25,9 +25,7 @@ public class AuthUserDetails implements UserDetails {
     }
 
     @Override
-    public String getPassword() {
-        return null;
-    }
+    public String getPassword() { return null; }
 
     @Override
     public String getUsername() {

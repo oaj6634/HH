@@ -27,24 +27,35 @@ public class UserController {
 
     @PostMapping("/join")
     @ResponseStatus(HttpStatus.CREATED)
-    public void join(@RequestBody JoinRequest join){ userService.join(join);}
+    public void join(@RequestBody JoinRequest join) {
+        userService.join(join);
+    }
 
     @PostMapping("/login")
     @ResponseStatus(HttpStatus.CREATED)
-    public LoginResponse login(@RequestBody LoginRequest loginRequest){ return userService.login(loginRequest); }
+    public LoginResponse login(@RequestBody LoginRequest loginRequest) {
+        return userService.login(loginRequest);
+    }
 
-    @GetMapping("/posts") @PreAuthorize("isAuthenticated()")
-    public List<GetUserPostResponse> getUserPost(Pageable pageable){return userService.responses(pageable);}
+    @GetMapping("/posts")
+    @PreAuthorize("isAuthenticated()")
+    public List<GetUserPostResponse> getUserPost(Pageable pageable) {
+        return userService.responses(pageable);
+    }
 
-    @GetMapping("/profile") @PreAuthorize("isAuthenticated()")
+    @GetMapping("/profile")
+    @PreAuthorize("isAuthenticated()")
     @ResponseStatus(HttpStatus.OK)
-    public GetProfileResponse profile(){return userService.getProfileResponse();}
+    public GetProfileResponse profile() {
+        return userService.getProfileResponse();
+    }
 
-    @PostMapping("/profile") @PreAuthorize("isAuthenticated()")
+    @PostMapping("/profile")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity updateProfile(@RequestPart("file") MultipartFile image,
                                         @RequestPart("description") UpdateProfileBodyRequest description,
-                                        @RequestPart("userName")UpdateProfileBodyRequest userName){
-        userService.updateProfile(image,description,userName);
+                                        @RequestPart("userName") UpdateProfileBodyRequest userName) {
+        userService.updateProfile(image, description, userName);
         return ResponseEntity.ok().build();
     }
 

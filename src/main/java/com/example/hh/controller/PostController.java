@@ -21,16 +21,18 @@ public class PostController {
 
     private final PostService postService;
 
-    @GetMapping("/posts") @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<List<GetPostResponse>> getPost(Pageable pageable){
+    @GetMapping("/posts")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<List<GetPostResponse>> getPost(Pageable pageable) {
         return new ResponseEntity<>(postService.getPost(pageable), HttpStatus.OK);
     }
 
-    @PostMapping("/posts") @PreAuthorize("isAuthenticated()")
+    @PostMapping("/posts")
+    @PreAuthorize("isAuthenticated()")
     @ResponseStatus(HttpStatus.OK)
     public void post(@RequestPart("file") MultipartFile multipartFile,
                      @RequestPart("content") PostRequestContent postRequestContent,
-                     @RequestPart("title") PostRequestTitle postRequestTitle){
+                     @RequestPart("title") PostRequestTitle postRequestTitle) {
         postService.post(multipartFile, postRequestContent, postRequestTitle);
     }
 

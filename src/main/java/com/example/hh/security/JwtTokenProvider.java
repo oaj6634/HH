@@ -20,7 +20,7 @@ public class JwtTokenProvider {
 
     private final AuthDetailsService userLoadService;
 
-    @Value( "${auth.jwt.secret}" )
+    @Value("${auth.jwt.secret}")
     private String secretKey;
 
     public String generateAccessToken(String value) {
@@ -31,11 +31,11 @@ public class JwtTokenProvider {
         return makingToken(value, "refresh", 172800L);
     }
 
-    public boolean validateAccessToken(String token){
+    public boolean validateAccessToken(String token) {
         return validateToken(token, "access");
     }
 
-    public boolean validateRefreshToken(String token){
+    public boolean validateRefreshToken(String token) {
         return validateToken(token, "refresh");
     }
 
@@ -49,12 +49,13 @@ public class JwtTokenProvider {
 
     public String resolveToken(HttpServletRequest request) {
         String token = request.getHeader("Authorization");
-        if(checkToken(token)) {
+        if (checkToken(token)) {
             return token.substring(7);
         }
         return null;
     }
-//                                                                          startWith() 지정된 접두사로 시작하는지 확인
+
+    //                                                                          startWith() 지정된 접두사로 시작하는지 확인
     public Boolean checkToken(String token) {
         return token != null && token.startsWith("Bearer");
     }
@@ -74,7 +75,7 @@ public class JwtTokenProvider {
         }
     }
 
-    private String makingToken(String value, String type, Long time){
+    private String makingToken(String value, String type, Long time) {
         return Jwts.builder()
                 .setExpiration(new Date(System.currentTimeMillis() + (time * 1000L))) //만료시간
                 .signWith(SignatureAlgorithm.HS512, encodingSecretKey()) // 사용할 알고리즘과 키 적용
@@ -84,7 +85,7 @@ public class JwtTokenProvider {
                 .compact(); //JWT 빌드
     }
 
-    private String encodingSecretKey(){
+    private String encodingSecretKey() {
         return Base64.getEncoder().encodeToString(secretKey.getBytes());
     }
 

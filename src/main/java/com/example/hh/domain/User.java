@@ -44,7 +44,7 @@ public class User {
     @Column(name = "description")
     private String description;
 
-    public void update(String userName, String description,String profileImageUrl){
+    public void update(String userName, String description, String profileImageUrl) {
         this.userName = userName;
         this.profileImageUrl = profileImageUrl;
         this.description = description;
