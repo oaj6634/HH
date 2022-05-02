@@ -55,7 +55,7 @@ public class JwtTokenProvider {
         return null;
     }
 
-    //                                                                          startWith() 지정된 접두사로 시작하는지 확인
+    //                                                                      startWith() 지정된 접두사로 시작하는지 확인
     public Boolean checkToken(String token) {
         return token != null && token.startsWith("Bearer");
     }
