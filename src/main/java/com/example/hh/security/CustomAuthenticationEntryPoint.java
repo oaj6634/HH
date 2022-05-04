@@ -18,8 +18,7 @@ import java.io.OutputStream;
 @Component
 public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
-    private static final ErrorResponse errorResponse =
-            new ErrorResponse(ErrorCode.UNAUTHORIZED, "Unauthorized Request");
+    private static final ErrorResponse errorResponse = new ErrorResponse(ErrorCode.UNAUTHORIZED, "Unauthorized Request");
 
     @Override
     public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {

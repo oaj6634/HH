@@ -1,6 +1,7 @@
 package com.example.hh.security;
 
 import com.example.hh.error.exception.InvalidTokenException;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
@@ -55,8 +56,8 @@ public class JwtTokenProvider {
         return null;
     }
 
-    //                                                                      startWith() 지정된 접두사로 시작하는지 확인
     public Boolean checkToken(String token) {
+        //starWith() 지정된 접두사로 시작하는 확인
         return token != null && token.startsWith("Bearer");
     }
 
