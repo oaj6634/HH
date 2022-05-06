@@ -39,7 +39,7 @@ public class User {
 
     @BatchSize(size = 5)
     @OneToMany(mappedBy = "user")
-    private List<Post> posts;
+    private List<Post> posts = new ArrayList<Post>();
 
     @Column(name = "description")
     private String description;
