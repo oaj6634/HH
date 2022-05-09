@@ -13,7 +13,7 @@ AWS EC2를 통한 배포
     <li>JAVA11</li>
     <li>Spring Boot</li>
     <li>Spring Security</li>
-    <li>AWS</li>
+    <li>AWS(EC2,RDS,S3)</li>
     <li>Mysql</li>
 </ul>
 
