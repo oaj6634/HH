@@ -135,6 +135,7 @@ public class UserService {
             user.update(userName.getUserName(),
                     description.getDescription(),
                     fileUploadService.uploadImage(image));
+            userRepository.save(user);
         }
         else
         {
@@ -146,6 +147,5 @@ public class UserService {
 
             userRepository.save(userSave);
         }
-        userRepository.save(user);
     }
 }
