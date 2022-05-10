@@ -84,7 +84,7 @@ public class UserService {
 
     public List<GetUserPostResponse> responses(Pageable pageable) {
         User user = authService.getUser();
-        Page<Post> posts = userRepository.findByUserId(user.getUserId(), pageable);
+        Page<Post> posts =  postRepository.findByUser(user,pageable);
         List<GetUserPostResponse> getUser = new ArrayList<>();
 
         for (Post post : posts) {
