@@ -52,11 +52,11 @@ public class UserController {
 
     @PostMapping("/profile")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity updateProfile(@RequestPart("file") MultipartFile image,
+    @ResponseStatus(HttpStatus.OK)
+    public void updateProfile(@RequestPart("file") MultipartFile image,
                                         @RequestPart("description") UpdateProfileBodyRequest description,
                                         @RequestPart("userName") UpdateProfileBodyRequest userName) {
         userService.updateProfile(image, description, userName);
-        return ResponseEntity.ok().build();
     }
 
 }

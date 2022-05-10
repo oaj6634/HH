@@ -130,11 +130,22 @@ public class UserService {
         User user = userRepository.findByUserId(authService.getUser().getUserId())
                 .orElseThrow(() -> new UserNotFoundException(authService.getUser().getUserId()));
 
-        user.update(userName.getUserName(),
-                description.getDescription(),
-                fileUploadService.uploadImage(image));
+        if(user.getProfileImageUrl() != null && user.getDescription() != null && user.getUserName() != null)
+        {
+            user.update(userName.getUserName(),
+                    description.getDescription(),
+                    fileUploadService.uploadImage(image));
+        }
+        else
+        {
+            User userSave = User.builder()
+                    .userName(userName.getUserName())
+                    .description(description.getDescription())
+                    .profileImageUrl(fileUploadService.uploadImage(image))
+                    .build();
 
-
+            userRepository.save(userSave);
+        }
         userRepository.save(user);
     }
 }
