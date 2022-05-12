@@ -39,6 +39,7 @@ public class UserController {
 
     @GetMapping("/posts")
     @PreAuthorize("isAuthenticated()")
+    @ResponseStatus(HttpStatus.OK)
     public List<GetUserPostResponse> getUserPost(Pageable pageable) {
         return userService.getUserPost(pageable);
     }
