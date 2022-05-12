@@ -1,9 +1,9 @@
 package com.example.hh.service;
 
 import com.example.hh.domain.Post;
-import com.example.hh.dto.request.PostRequestTitle;
+import com.example.hh.dto.request.PostTitleRequest;
 import com.example.hh.dto.response.GetPostResponse;
-import com.example.hh.dto.request.PostRequestContent;
+import com.example.hh.dto.request.PostContentRequest;
 import com.example.hh.repository.PostRepository;
 import com.example.hh.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +22,7 @@ public class PostService {
 
     private final PostRepository postRepository;
     private final JwtTokenProvider jwtTokenProvider;
-    private final AuthService authService;
+    private final GetAuthService authService;
     private final FileUploadService fileUploadService;
 
     public List<GetPostResponse> getPost(Pageable pageable) {
@@ -34,7 +34,7 @@ public class PostService {
                     .title(post.getTitle())
                     .content(post.getContent())
                     .date(post.getCreateAt())
-                    .imageUrl(post.getImageUrl())
+                    .imageUrl(post.getPostImageUrl())
                     .build();
 
             getPost.add(postRequest);
@@ -42,14 +42,14 @@ public class PostService {
         return getPost;
     }
 
-    public void post(MultipartFile multipartFile, PostRequestContent postRequestContent, PostRequestTitle postRequestTitle) {
+    public void post(MultipartFile multipartFile, PostContentRequest postRequestContent, PostTitleRequest postRequestTitle) {
 
         Post post = Post.builder()
                 .content(postRequestContent.getContent())
                 .createAt(LocalDateTime.now())
                 .title(postRequestTitle.getTitle())
                 .user(authService.getUser())
-                .imageUrl(fileUploadService.uploadImage(multipartFile))
+                .postImageUrl(fileUploadService.uploadImage(multipartFile))
                 .build();
 
         postRepository.save(post);

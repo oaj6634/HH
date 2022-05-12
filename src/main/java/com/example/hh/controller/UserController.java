@@ -40,23 +40,23 @@ public class UserController {
     @GetMapping("/posts")
     @PreAuthorize("isAuthenticated()")
     public List<GetUserPostResponse> getUserPost(Pageable pageable) {
-        return userService.responses(pageable);
+        return userService.getUserPost(pageable);
     }
 
     @GetMapping("/profile")
     @PreAuthorize("isAuthenticated()")
     @ResponseStatus(HttpStatus.OK)
-    public GetProfileResponse profile() {
-        return userService.getProfileResponse();
+    public GetProfileResponse getProfile() {
+        return userService.getProfile();
     }
 
     @PostMapping("/profile")
     @PreAuthorize("isAuthenticated()")
     @ResponseStatus(HttpStatus.OK)
-    public void updateProfile(@RequestPart("file") MultipartFile image,
-                                        @RequestPart("description") UpdateProfileBodyRequest description,
-                                        @RequestPart("userName") UpdateProfileBodyRequest userName) {
-        userService.updateProfile(image, description, userName);
+    public void updateProfile(@RequestPart("file") MultipartFile profileImage,
+                                        @RequestPart("description") UpdateProfileBodyRequest profileDescription,
+                                        @RequestPart("userName") UpdateProfileBodyRequest profileUserName) {
+        userService.updateProfile(profileImage, profileDescription, profileUserName);
     }
 
 }

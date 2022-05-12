@@ -35,7 +35,7 @@ public class Post {
     private LocalDateTime createAt;
 
     @Column(name = "image_url")
-    private String imageUrl;
+    private String postImageUrl;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

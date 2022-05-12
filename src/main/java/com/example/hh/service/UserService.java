@@ -28,7 +28,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserService {
 
-    private final AuthService authService;
+    private final GetAuthService authService;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
@@ -82,7 +82,7 @@ public class UserService {
         return new TokenRefreshResponse(accessToken);
     }
 
-    public List<GetUserPostResponse> responses(Pageable pageable) {
+    public List<GetUserPostResponse> getUserPost(Pageable pageable) {
         User user = authService.getUser();
         Page<Post> posts =  postRepository.findByUser(user,pageable);
         List<GetUserPostResponse> getUser = new ArrayList<>();
@@ -92,7 +92,7 @@ public class UserService {
                     .content(post.getContent())
                     .title(post.getTitle())
                     .date(post.getCreateAt())
-                    .imageUrl(post.getImageUrl())
+                    .imageUrl(post.getPostImageUrl())
                     .build();
 
             getUser.add(getUserPost);
@@ -101,7 +101,7 @@ public class UserService {
         return getUser;
     }
 
-    public GetProfileResponse getProfileResponse() {
+    public GetProfileResponse getProfile() {
         User user = userRepository.findByUserId(authService.getUser().getUserId())
                 .orElseThrow(() -> new UserNotFoundException(authService.getUser().getUserId()));
 
@@ -126,23 +126,24 @@ public class UserService {
         return getProfile;
     }
 
-    public void updateProfile(MultipartFile image, UpdateProfileBodyRequest description, UpdateProfileBodyRequest userName) {
+    public void updateProfile(MultipartFile profileImage, UpdateProfileBodyRequest profileDescription, UpdateProfileBodyRequest profileUserName) {
         User user = userRepository.findByUserId(authService.getUser().getUserId())
                 .orElseThrow(() -> new UserNotFoundException(authService.getUser().getUserId()));
 
         if(user.getProfileImageUrl() != null && user.getDescription() != null && user.getUserName() != null)
         {
-            user.update(userName.getUserName(),
-                    description.getDescription(),
-                    fileUploadService.uploadImage(image));
+            user.update(profileUserName.getUserName(),
+                    profileDescription.getDescription(),
+                    fileUploadService.uploadImage(profileImage));
+
             userRepository.save(user);
         }
         else
         {
             User userSave = User.builder()
-                    .userName(userName.getUserName())
-                    .description(description.getDescription())
-                    .profileImageUrl(fileUploadService.uploadImage(image))
+                    .userName(profileUserName.getUserName())
+                    .description(profileDescription.getDescription())
+                    .profileImageUrl(fileUploadService.uploadImage(profileImage))
                     .build();
 
             userRepository.save(userSave);

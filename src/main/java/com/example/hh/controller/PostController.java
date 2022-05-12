@@ -1,8 +1,8 @@
 package com.example.hh.controller;
 
-import com.example.hh.dto.request.PostRequestTitle;
+import com.example.hh.dto.request.PostTitleRequest;
 import com.example.hh.dto.response.GetPostResponse;
-import com.example.hh.dto.request.PostRequestContent;
+import com.example.hh.dto.request.PostContentRequest;
 import com.example.hh.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -31,8 +31,8 @@ public class PostController {
     @PreAuthorize("isAuthenticated()")
     @ResponseStatus(HttpStatus.OK)
     public void post(@RequestPart("file") MultipartFile multipartFile,
-                     @RequestPart("content") PostRequestContent postRequestContent,
-                     @RequestPart("title") PostRequestTitle postRequestTitle) {
+                     @RequestPart("content") PostContentRequest postRequestContent,
+                     @RequestPart("title") PostTitleRequest postRequestTitle) {
         postService.post(multipartFile, postRequestContent, postRequestTitle);
     }
 

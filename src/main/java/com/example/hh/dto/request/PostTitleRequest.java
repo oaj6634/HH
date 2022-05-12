@@ -3,10 +3,7 @@ package com.example.hh.dto.request;
 import lombok.Getter;
 
 @Getter
-public class PostRequestContent {
+public class PostTitleRequest {
 
-
-    private String content;
-
-
+    private String title;
 }
