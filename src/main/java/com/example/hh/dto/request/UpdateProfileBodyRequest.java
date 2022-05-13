@@ -8,8 +8,10 @@ import org.springframework.web.multipart.MultipartFile;
 @AllArgsConstructor
 public class UpdateProfileBodyRequest {
 
-    private String userName;
+    private String profileUserName;
 
-    private String description;
+    private String profileUserDescription;
+
+    private MultipartFile profileUserImage;
 
 }

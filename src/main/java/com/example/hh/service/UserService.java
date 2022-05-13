@@ -15,6 +15,7 @@ import com.example.hh.repository.PostRepository;
 import com.example.hh.repository.UserRepository;
 import com.example.hh.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.sql.Update;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -126,24 +127,24 @@ public class UserService {
         return getProfile;
     }
 
-    public void updateProfile(MultipartFile profileImage, UpdateProfileBodyRequest profileDescription, UpdateProfileBodyRequest profileUserName) {
+    public void updateProfile(UpdateProfileBodyRequest profileUserImage, UpdateProfileBodyRequest profileUserName, UpdateProfileBodyRequest profileUserDescription) {
         User user = userRepository.findByUserId(authService.getUser().getUserId())
                 .orElseThrow(() -> new UserNotFoundException(authService.getUser().getUserId()));
 
         if(user.getProfileImageUrl() != null && user.getDescription() != null && user.getUserName() != null)
         {
-            user.update(profileUserName.getUserName(),
-                    profileDescription.getDescription(),
-                    fileUploadService.uploadImage(profileImage));
+            user.update(profileUserName.getProfileUserName(),
+                    profileUserDescription.getProfileUserDescription(),
+                    fileUploadService.uploadImage(profileUserImage.getProfileUserImage()));
 
             userRepository.save(user);
         }
         else
         {
             User userSave = User.builder()
-                    .userName(profileUserName.getUserName())
-                    .description(profileDescription.getDescription())
-                    .profileImageUrl(fileUploadService.uploadImage(profileImage))
+                    .userName(profileUserName.getProfileUserName())
+                    .description(profileUserDescription.getProfileUserDescription())
+                    .profileImageUrl(fileUploadService.uploadImage(profileUserImage.getProfileUserImage()))
                     .build();
 
             userRepository.save(userSave);

@@ -54,7 +54,7 @@ public class UserController {
     @PostMapping("/profile")
     @PreAuthorize("isAuthenticated()")
     @ResponseStatus(HttpStatus.OK)
-    public void updateProfile(@RequestPart("file") MultipartFile profileImage,
+    public void updateProfile(@RequestPart("file") UpdateProfileBodyRequest profileImage,
                                         @RequestPart("description") UpdateProfileBodyRequest profileDescription,
                                         @RequestPart("userName") UpdateProfileBodyRequest profileUserName) {
         userService.updateProfile(profileImage, profileDescription, profileUserName);
