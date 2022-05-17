@@ -37,20 +37,18 @@ public class UserService {
     private final FileUploadService fileUploadService;
 
     public void join(JoinRequest join) {
-        String id = join.getUserId();
 
-        if (userRepository.existsById(id)) {
-            throw new ExistUserException(id);
-        }
+        userRepository.findByUserId(join.getUserId())
+                        .ifPresentOrElse(user -> {throw new ExistUserException(join.getUserId());},
+                                () -> userRepository.save((User.builder()
+                                        .userId(join.getUserId())
+                                        .userName(join.getUserName())
+                                        .password(passwordEncoder.encode(join.getPassword()))
+                                        .zipCode(join.getZipCode())
+                                        .email(join.getEmail())
+                                        .build()))
+                                );
 
-        User user = User.builder()
-                .userId(id)
-                .password(passwordEncoder.encode(join.getPassword()))
-                .email(join.getEmail())
-                .userName(join.getUserName())
-                .zipCode(join.getZipCode())
-                .build();
-        userRepository.save(user);
     }
 
     public LoginResponse login(LoginRequest loginRequest) {
@@ -67,7 +65,6 @@ public class UserService {
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
                 .userId(user.getUserId())
-                .password(user.getPassword())
                 .email(user.getEmail())
                 .userName(user.getUserName())
                 .zipCode(user.getZipCode())
