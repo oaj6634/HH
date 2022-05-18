@@ -107,7 +107,7 @@ public class UserService {
             GetProfileResponse getProfileResponse = GetProfileResponse.builder()
                     .email(user.getEmail())
                     .imageUrl("")
-                    .description("asdfsd")
+                    .description("")
                     .userName(user.getUserName())
                     .build();
 
